@@ -1,0 +1,11 @@
+<resources>
+
+    <string name="action_refresh">Actualizar</string>
+    <string name="action_settings">Definições</string>
+    <string name="app_name">Há Greve</string>
+    <string name="action_filters">Filtros</string>
+    <string name="server">Servidor : </string>
+    <string name="action_exit">Sair</string>
+    <string name="save">Guardar</string>
+
+</resources>
