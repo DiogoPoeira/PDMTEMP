@@ -150,6 +150,7 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void parseJSON(String json) throws JSONException {
+        strikes.clear();
         JSONArray jsonArr = new JSONArray(json);
         for(int i = 0; i< jsonArr.length(); ++i){
             JSONObject obj = jsonArr.getJSONObject(i);
