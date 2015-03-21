@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -98,6 +99,11 @@ public class MainActivity extends ActionBarActivity {
         sp.edit().putString("uri",uri).commit();
     }
 
+    public void openStrikeDetails() {
+        Intent intent = new Intent(this, StrikeDetailsActivity.class);
+        startActivity(intent);
+    }
+
     private void openFilters() {
 
     }
@@ -154,7 +160,8 @@ public class MainActivity extends ActionBarActivity {
         JSONArray jsonArr = new JSONArray(json);
         for(int i = 0; i< jsonArr.length(); ++i){
             JSONObject obj = jsonArr.getJSONObject(i);
-            strikes.add(new Strike(obj.getString("description"),
+            strikes.add(new Strike(
+                    obj.getString("description"),
                     obj.getString("end_date"),
                     obj.getString("source_link"),
                     obj.getBoolean("all_day"),
@@ -164,4 +171,6 @@ public class MainActivity extends ActionBarActivity {
             );
         }
     }
+
+
 }

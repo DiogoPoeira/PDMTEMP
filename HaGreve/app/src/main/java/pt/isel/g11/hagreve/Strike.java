@@ -20,7 +20,7 @@ public class Strike {
 
     @Override
     public String toString(){
-        return company+"\n"+startDate+"\n";
+        return company + "\nDe:" + startDate + "\nA: " + endDate +"\n" + description;
     }
 
     public String getCompany(){
