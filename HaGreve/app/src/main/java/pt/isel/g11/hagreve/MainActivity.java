@@ -2,6 +2,7 @@ package pt.isel.g11.hagreve;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -32,14 +33,16 @@ public class MainActivity extends ActionBarActivity {
     private static final int SETTINGS = 0;
     private ArrayAdapter<Strike> adapter;
     private ListView listView;
+    private static Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = getSharedPreferences("pt.isel.a36238.hagreve",MODE_PRIVATE);
         uri = sp.getString("uri", "http://hagreve.com/api/v2/strikes");
+        res = getResources();
         strikes = new ArrayList<Strike>();
-        adapter = new ArrayAdapter<Strike>(this,android.R.layout.simple_list_item_1,strikes);
+        adapter = new CustomAdapter(this,strikes);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
@@ -163,5 +166,13 @@ public class MainActivity extends ActionBarActivity {
                     obj.getJSONObject("company").getString("name"))
             );
         }
+    }
+
+    public static Strike getStrike(int i) {
+        return strikes.get(i);
+    }
+
+    public  static String getStringFromResources(int id){
+        return res.getString(id);
     }
 }

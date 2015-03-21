@@ -7,6 +7,9 @@
         android:id="@+id/listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:divider="#ff000000"
+        android:dividerHeight="1dp"
+        android:listSelector="@drawable/list_selector"
          />
 
 </LinearLayout>
