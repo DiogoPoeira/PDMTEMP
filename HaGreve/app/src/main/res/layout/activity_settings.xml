@@ -29,6 +29,7 @@
         android:id="@+id/settingButton"
         android:onClick="saveSettings"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textSize="10dp"/>
 
 </RelativeLayout>

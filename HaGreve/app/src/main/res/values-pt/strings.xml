@@ -7,5 +7,13 @@
     <string name="server">Servidor : </string>
     <string name="action_exit">Sair</string>
     <string name="save">Guardar</string>
+    <string name="allDay">Todo o Dia</string>
+    <string name="partial">Parcial</string>
+    <string name= "starting">De : </string>
+    <string name= "until">Até : </string>
+    <string name= "type">Tipo : </string>
+    <string name= "source">Fonte </string>
+    <string name= "details">Detalhes</string>
+
 
 </resources>

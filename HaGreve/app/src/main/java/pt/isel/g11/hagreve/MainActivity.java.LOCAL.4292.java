@@ -1,9 +1,7 @@
 package pt.isel.g11.hagreve;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +9,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -36,36 +33,21 @@ public class MainActivity extends ActionBarActivity {
     private static final int SETTINGS = 0;
     private ArrayAdapter<Strike> adapter;
     private ListView listView;
-    private static Resources res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sp = getSharedPreferences("pt.isel.a36238.hagreve",MODE_PRIVATE);
         uri = sp.getString("uri", "http://hagreve.com/api/v2/strikes");
-        res = getResources();
         strikes = new ArrayList<Strike>();
-        adapter = new CustomAdapter(this,strikes);
+        adapter = new ArrayAdapter<Strike>(this,android.R.layout.simple_list_item_1,strikes);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
         if(strikes.isEmpty()){
             refreshStrikes();
-
-            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
-                    Intent intent = new Intent(getBaseContext(), StrikeDetailsActivity.class);
-                    //Strike s =  adapter.getItem(position);
-
-                    intent.putExtra("detail", position);
-                    startActivity(intent);
-                }
-            };
-            listView.setOnItemClickListener(listener);
         }
-        }
-
+    }
 
 
     @Override
@@ -117,14 +99,10 @@ public class MainActivity extends ActionBarActivity {
         sp.edit().putString("uri",uri).commit();
     }
 
-
-
-
-  /*  public void openStrikeDetails(View view) {
+    public void openStrikeDetails() {
         Intent intent = new Intent(this, StrikeDetailsActivity.class);
-        intent.putExtra("detail", strikes);
         startActivity(intent);
-    }*/
+    }
 
     private void openFilters() {
 
@@ -194,16 +172,5 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public static Strike getStrike(int i) {
-        return strikes.get(i);
-    }
-
-    public  static String getStringFromResources(int id){
-        return res.getString(id);
-    }
-
-    public static int getResourceID(String s, Context c){
-        return res.getIdentifier((s + "logo").toLowerCase().replaceAll("\\s+", ""), "drawable", c.getPackageName());
-    }
 
 }

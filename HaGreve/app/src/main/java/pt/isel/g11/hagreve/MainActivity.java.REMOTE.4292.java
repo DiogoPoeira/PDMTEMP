@@ -1,6 +1,5 @@
 package pt.isel.g11.hagreve;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -10,8 +9,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -51,21 +48,8 @@ public class MainActivity extends ActionBarActivity {
         listView.setAdapter(adapter);
         if(strikes.isEmpty()){
             refreshStrikes();
-
-            AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
-                    Intent intent = new Intent(getBaseContext(), StrikeDetailsActivity.class);
-                    //Strike s =  adapter.getItem(position);
-
-                    intent.putExtra("detail", position);
-                    startActivity(intent);
-                }
-            };
-            listView.setOnItemClickListener(listener);
         }
-        }
-
+    }
 
 
     @Override
@@ -116,15 +100,6 @@ public class MainActivity extends ActionBarActivity {
         super.onStop();
         sp.edit().putString("uri",uri).commit();
     }
-
-
-
-
-  /*  public void openStrikeDetails(View view) {
-        Intent intent = new Intent(this, StrikeDetailsActivity.class);
-        intent.putExtra("detail", strikes);
-        startActivity(intent);
-    }*/
 
     private void openFilters() {
 
@@ -182,8 +157,7 @@ public class MainActivity extends ActionBarActivity {
         JSONArray jsonArr = new JSONArray(json);
         for(int i = 0; i< jsonArr.length(); ++i){
             JSONObject obj = jsonArr.getJSONObject(i);
-            strikes.add(new Strike(
-                    obj.getString("description"),
+            strikes.add(new Strike(obj.getString("description"),
                     obj.getString("end_date"),
                     obj.getString("source_link"),
                     obj.getBoolean("all_day"),
@@ -201,9 +175,4 @@ public class MainActivity extends ActionBarActivity {
     public  static String getStringFromResources(int id){
         return res.getString(id);
     }
-
-    public static int getResourceID(String s, Context c){
-        return res.getIdentifier((s + "logo").toLowerCase().replaceAll("\\s+", ""), "drawable", c.getPackageName());
-    }
-
 }

@@ -4,4 +4,10 @@
     tools:context="pt.isel.g11.hagreve.StrikeDetailsActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
+
+    <item android:id="@+id/action_calendar"
+        android:icon="@drawable/calendar"
+        android:title="@string/action_refresh"
+        app:showAsAction="ifRoom"/>
+
 </menu>
