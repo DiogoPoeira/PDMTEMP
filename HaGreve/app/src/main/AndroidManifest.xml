@@ -26,6 +26,10 @@
             android:name=".StrikeDetailsActivity"
             android:label="@string/details" >
         </activity>
+        <activity
+            android:name=".FilterActivity"
+          ></activity>
+
     </application>
 
 </manifest>

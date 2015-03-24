@@ -5,12 +5,18 @@ package pt.isel.g11.hagreve;
  */
 public class Company {
 
+    private int id;
     private String name;
     private boolean isSelected;
 
-    public Company (String name){
+    public Company (int id, String name){
+        this.id = id;
         this.name = name;
         isSelected = false;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
