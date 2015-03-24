@@ -5,6 +5,7 @@ package pt.isel.g11.hagreve;
  */
 public class Company {
 
+    private int id;
     private String name;
     private boolean isSelected;
     private int id;
@@ -15,6 +16,10 @@ public class Company {
         isSelected = false;
     }
     public int getId(){ return id; }
+
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;

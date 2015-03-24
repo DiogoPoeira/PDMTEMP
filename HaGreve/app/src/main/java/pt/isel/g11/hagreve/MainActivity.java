@@ -30,13 +30,11 @@ import java.util.ArrayList;
 public class MainActivity extends ActionBarActivity {
 
     private static ArrayList<Strike> strikes;
-    private static ArrayList<Company> companies;
 
     private String uri;
     private SharedPreferences sp;
     private static final int SETTINGS = 0, FILTER = 1;
     private ArrayAdapter<Strike> adapter;
-    private CustomAdapterCompanies adapterCompanies;
     private ListView listView;
     private static Resources res;
 
@@ -47,13 +45,10 @@ public class MainActivity extends ActionBarActivity {
         uri = sp.getString("uri", "http://hagreve.com/api/v2/strikes");
         res = getResources();
         strikes = new ArrayList<Strike>();
-        companies = new ArrayList<Company>();
         adapter = new CustomAdapter(this,strikes);
-        adapterCompanies = new CustomAdapterCompanies(this, companies);
         setContentView(R.layout.activity_main);
         listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
-        getCompanies();
         if(strikes.isEmpty()){
             refreshStrikes();
 
@@ -70,8 +65,6 @@ public class MainActivity extends ActionBarActivity {
             listView.setOnItemClickListener(listener);
         }
         }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -106,9 +99,10 @@ public class MainActivity extends ActionBarActivity {
                 case SETTINGS:
                     uri = data.getStringExtra("uri");
                     break;
-                case FILTER:
+                //case FILTER:
+                    //arranjar maneira de guardar a lista dos filtros na sharedPreference
                     //sp.edit().put
-                    break;
+                 //   break;
                 default:
                     break;
             }
@@ -126,8 +120,6 @@ public class MainActivity extends ActionBarActivity {
     }
 
 
-
-
   /*  public void openStrikeDetails(View view) {
         Intent intent = new Intent(this, StrikeDetailsActivity.class);
         intent.putExtra("detail", strikes);
@@ -135,8 +127,7 @@ public class MainActivity extends ActionBarActivity {
     }*/
 
     private void openFilters() {
-        Intent intent = new Intent(this,FilterActivity.class);
-        intent.putExtra("uri", uri);
+        Intent intent = new Intent(this, FilterActivity.class);
         startActivity(intent);
         //startActivityForResult(intent, FILTER);
     }
@@ -188,47 +179,6 @@ public class MainActivity extends ActionBarActivity {
         }.execute();
     }
 
-    private void getCompanies() {
-        new AsyncTask<Void,Void,String>(){
-            @Override
-            protected String doInBackground(Void... params) {
-                try {
-                    URL url = new URL("http://hagreve.pt/api/v2/companies");
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.connect();
-
-                    BufferedReader reader = new BufferedReader(
-                            new InputStreamReader(
-                                    conn.getInputStream()
-                            )
-                    );
-
-                    StringBuilder response = new StringBuilder();
-                    String line;
-                    while((line=reader.readLine())!=null){
-                        response.append(line).append("\n");
-                    }
-                    conn.disconnect();
-                    return response.toString();
-                } catch (IOException e) {
-                    Log.e("PDM",e.getMessage());
-                    throw new RuntimeException(e);
-                }
-            }
-
-            @Override
-            protected void onPostExecute(String resp){
-                try {
-                    parseJSONCompanies(resp);
-                } catch (JSONException e) {
-                    Log.d("main_activity", "onCreate");
-                    throw new RuntimeException(e);
-                }
-                adapterCompanies.notifyDataSetChanged();
-            }
-        }.execute();
-    }
-
     private void parseJSON(String json) throws JSONException {
         strikes.clear();
         JSONArray jsonArr = new JSONArray(json);
@@ -243,15 +193,6 @@ public class MainActivity extends ActionBarActivity {
                             obj.getBoolean("canceled"),
                             obj.getJSONObject("company").getString("name"))
             );
-        }
-    }
-
-    private void parseJSONCompanies(String json) throws JSONException {
-        companies.clear();
-        JSONArray jsonArr = new JSONArray(json);
-        for(int i = 0; i< jsonArr.length(); ++i){
-            JSONObject obj = jsonArr.getJSONObject(i);
-            companies.add(new Company(obj.getString("name")));
         }
     }
 
