@@ -1,10 +1,8 @@
 package pt.isel.g11.hagreve;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
+
 import android.content.Intent;
 import android.net.Uri;
-import android.provider.CalendarContract;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,14 +36,12 @@ public class StrikeDetailsActivity extends ActionBarActivity {
                  tvDesc = (TextView)findViewById(R.id.descDetails),
                  tvAllDay = (TextView)findViewById(R.id.allDayDetails);
         Button bSourceLink = (Button)findViewById(R.id.sourceButton);
-        ImageView ivLogo = (ImageView)findViewById(R.id.company_logo);
+
         tvCompany.setText(s.getCompany());
         tvStartDate.setText(s.getDates());
         tvDesc.setText(s.getDescription());
         tvAllDay.setText(s.getIsParcial());
         bSourceLink.setText(R.string.source);
-        int id = getResources().getIdentifier((s.getCompany()+"logo").toLowerCase().replaceAll("\\s+",""), "drawable", getPackageName());
-        ivLogo.setImageResource(id);
     }
 
     public void openSource(View view){

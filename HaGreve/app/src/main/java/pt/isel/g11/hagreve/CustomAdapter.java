@@ -30,12 +30,12 @@ public class CustomAdapter extends ArrayAdapter<Strike> {
         TextView company = (TextView) row.findViewById(R.id.company),
                  desc = (TextView) row.findViewById(R.id.desc),
                  dates = (TextView) row.findViewById(R.id.dates);
-        ImageView companyLogo = (ImageView) row.findViewById(R.id.company_logo);
+
 
         company.setText(s.getCompany());
         desc.setText(s.getDescription());
         dates.setText(s.getDates());
-        companyLogo.setImageResource( MainActivity.getResourceID(s.getCompany(), context));
+
 
         return row;
     }

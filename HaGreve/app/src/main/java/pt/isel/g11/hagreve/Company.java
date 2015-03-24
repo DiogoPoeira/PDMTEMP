@@ -7,11 +7,14 @@ public class Company {
 
     private String name;
     private boolean isSelected;
+    private int id;
 
-    public Company (String name){
+    public Company (int id, String name){
+        this.id = id;
         this.name = name;
         isSelected = false;
     }
+    public int getId(){ return id; }
 
     public String getName() {
         return name;
